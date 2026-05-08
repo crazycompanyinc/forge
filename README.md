@@ -1,45 +1,44 @@
-# Forge
+# 🔨 Forge — Autonomous Code Evolution
 
-Forge is a local autonomous code evolution system. It analyzes a Python codebase, plans targeted improvements, applies safe deterministic changes, verifies them with tests and safety checks, and records outcomes for future planning.
+> AI-powered code generation, refactoring & optimization that improves itself over time.
 
-## Capabilities
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-- Continuous codebase health analysis
-- Refactoring, dependency, security, performance, test, docs, style, and feature planning
-- One-change-at-a-time execution with rollback snapshots
-- Verification through test runs, safety checks, and health comparison
-- Learning records for successful and failed changes
-- Click CLI and FastAPI server
-- Built-in demo codebase with intentional issues
+## What is Forge?
 
-## Quick Start
+Forge is an autonomous code evolution system that uses AI to generate, refactor, and optimize code. Unlike simple code completion tools, Forge understands your entire codebase and can make architectural decisions, write tests, and improve itself over time.
 
-```bash
-pip install -e ".[dev]"
-forge init
-forge demo
-forge analyze --path .forge_demo/before
-forge plan --path .forge_demo/before
-forge execute --path .forge_demo/before
-forge verify --path .forge_demo/before
-forge health
-```
+## ✨ Features
 
-## CLI
+- 🧠 **AI Code Generation** — from natural language descriptions
+- 🔄 **Autonomous Refactoring** — identifies and fixes code smells
+- ✅ **Test Generation** — automatic unit and integration tests
+- 📐 **Architecture Analysis** — suggests structural improvements
+- 🔁 **Self-Improvement** — learns from past changes
+- 📊 **Code Metrics** — complexity, coverage, quality scores
+- 🔌 **Multi-Language** — TypeScript, Python, Go, Rust
+
+## 🚀 Quick Start
 
 ```bash
-forge init
-forge analyze [--path PATH]
-forge plan [--path PATH] [--type TYPE]
-forge execute [--path PATH] [--task TASK_ID]
-forge verify [--path PATH]
-forge rollback [--path PATH]
-forge health
-forge history
-forge skills
-forge roadmap
-forge serve --port 8000
-forge demo
+git clone https://github.com/crazycompanyinc/forge
+cd forge
+npm install
+npm run dev
 ```
 
-Forge is intentionally conservative: built-in skills operate on recognizable demo and common Python patterns, then verification decides whether changes stay applied.
+## 🛠️ Tech Stack
+
+- **Core:** TypeScript, Python
+- **AI:** LLM integration (OpenAI, Anthropic, local)
+- **AST:** Tree-sitter for multi-language parsing
+
+## 📄 License
+
+MIT
+
+---
+
+Built with ❤️ by [ZOO Technologies](https://zootechnologies.com)
