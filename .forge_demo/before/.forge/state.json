@@ -1,0 +1,876 @@
+{
+  "changes": [
+    {
+      "applied_at": "2026-05-08T07:06:06.552679+00:00",
+      "diff": "--- a/app/data.py\n+++ b/app/data.py\n@@ -1,3 +1,3 @@\n def get_user(cursor, name):\n-    cursor.execute(\"SELECT * FROM users WHERE name = '%s'\" % name)\n+    cursor.execute(\"SELECT * FROM users WHERE name = ?\", (name,))\n     return cursor.fetchone()\n",
+      "files_changed": [
+        "app/data.py"
+      ],
+      "id": "change_e45488992352",
+      "status": "rolled_back",
+      "task_id": "task_5d90e81afab1",
+      "tests_added": 0,
+      "tests_passed": false
+    },
+    {
+      "applied_at": "2026-05-08T07:06:08.594367+00:00",
+      "diff": "--- a/requirements.txt\n+++ b/requirements.txt\n@@ -1 +1 @@\n-requests==2.25\n+requests==2.31.0\n",
+      "files_changed": [
+        "requirements.txt"
+      ],
+      "id": "change_9a02241ae095",
+      "status": "rolled_back",
+      "task_id": "task_36f12483f486",
+      "tests_added": 0,
+      "tests_passed": false
+    },
+    {
+      "applied_at": "2026-05-08T07:06:10.244884+00:00",
+      "diff": "--- a/app/legacy.py\n+++ b/app/legacy.py\n@@ -26,9 +26,11 @@\n         total += 0\n     return round(total, 2)\n \n-def find_duplicates(items):\n-    results = []\n+def find_duplicates(items: list[str]) -> list[str]:\n+    seen: set[str] = set()\n+    duplicates: set[str] = set()\n     for item in items:\n-        if items.count(item) > 1 and item not in results:\n-            results.append(item)\n-    return results\n+        if item in seen:\n+            duplicates.add(item)\n+        seen.add(item)\n+    return sorted(duplicates)\n",
+      "files_changed": [
+        "app/legacy.py"
+      ],
+      "id": "change_2d9c7b2f3021",
+      "status": "rolled_back",
+      "task_id": "task_33783f67729a",
+      "tests_added": 0,
+      "tests_passed": false
+    },
+    {
+      "applied_at": "2026-05-08T07:06:11.878927+00:00",
+      "diff": "--- a/app/data.py\n+++ b/app/data.py\n@@ -1,3 +1,3 @@\n-def get_user(cursor, name):\n+def get_user(cursor, name: str):\n     cursor.execute(\"SELECT * FROM users WHERE name = '%s'\" % name)\n     return cursor.fetchone()\n",
+      "files_changed": [
+        "app/data.py"
+      ],
+      "id": "change_a9bad131526a",
+      "status": "rolled_back",
+      "task_id": "task_c11210a9e399",
+      "tests_added": 0,
+      "tests_passed": false
+    },
+    {
+      "applied_at": "2026-05-08T07:06:14.637183+00:00",
+      "diff": "--- a/app/legacy.py\n+++ b/app/legacy.py\n@@ -2,7 +2,7 @@\n import sys\n import random\n \n-def calculate_invoice(items, tax_rate, discount, user_type):\n+def calculate_invoice(items: list[float], tax_rate: float, discount: float, user_type: str) -> float:\n     total = 0\n     for item in items:\n         total += item\n@@ -26,7 +26,7 @@\n         total += 0\n     return round(total, 2)\n \n-def find_duplicates(items):\n+def find_duplicates(items: list[str]) -> list[str]:\n     results = []\n     for item in items:\n         if items.count(item) > 1 and item not in results:\n",
+      "files_changed": [
+        "app/legacy.py"
+      ],
+      "id": "change_a6c79e71bab5",
+      "status": "rolled_back",
+      "task_id": "task_d3f44ea28567",
+      "tests_added": 0,
+      "tests_passed": false
+    },
+    {
+      "applied_at": "2026-05-08T07:06:17.394241+00:00",
+      "diff": "",
+      "files_changed": [
+        "tests/test_legacy.py"
+      ],
+      "id": "change_89d2c19f2249",
+      "status": "rolled_back",
+      "task_id": "task_e20f14848d7e",
+      "tests_added": 0,
+      "tests_passed": false
+    },
+    {
+      "applied_at": "2026-05-08T07:06:20.926975+00:00",
+      "diff": "--- a/app/legacy.py\n+++ b/app/legacy.py\n@@ -1,6 +1,3 @@\n-import os\n-import sys\n-import random\n \n def calculate_invoice(items, tax_rate, discount, user_type):\n     total = 0\n",
+      "files_changed": [
+        "app/legacy.py"
+      ],
+      "id": "change_7636924dbc44",
+      "status": "rolled_back",
+      "task_id": "task_2dcf64fc1081",
+      "tests_added": 0,
+      "tests_passed": false
+    },
+    {
+      "applied_at": "2026-05-08T07:06:28.578797+00:00",
+      "diff": "--- a/app/__init__.py\n+++ b/app/__init__.py\n@@ -0,0 +1,2 @@\n+\"\"\"Utilities evolved by Forge.\"\"\"\n+\n",
+      "files_changed": [
+        "app/__init__.py"
+      ],
+      "id": "change_39d1ed8c5cb5",
+      "status": "rolled_back",
+      "task_id": "task_039659dec900",
+      "tests_added": 0,
+      "tests_passed": false
+    },
+    {
+      "applied_at": "2026-05-08T07:06:34.009176+00:00",
+      "diff": "--- a/app/data.py\n+++ b/app/data.py\n@@ -1,3 +1,5 @@\n+\"\"\"Utilities evolved by Forge.\"\"\"\n+\n def get_user(cursor, name):\n     cursor.execute(\"SELECT * FROM users WHERE name = '%s'\" % name)\n     return cursor.fetchone()\n",
+      "files_changed": [
+        "app/data.py"
+      ],
+      "id": "change_75720dccc132",
+      "status": "rolled_back",
+      "task_id": "task_a9c634770fde",
+      "tests_added": 0,
+      "tests_passed": false
+    },
+    {
+      "applied_at": "2026-05-08T07:07:08.355569+00:00",
+      "diff": "--- a/app/legacy.py\n+++ b/app/legacy.py\n@@ -1,3 +1,5 @@\n+\"\"\"Utilities evolved by Forge.\"\"\"\n+\n import os\n import sys\n import random\n",
+      "files_changed": [
+        "app/legacy.py"
+      ],
+      "id": "change_d076f25f2afa",
+      "status": "rolled_back",
+      "task_id": "task_b2cd66918133",
+      "tests_added": 0,
+      "tests_passed": false
+    },
+    {
+      "applied_at": "2026-05-08T07:07:09.723051+00:00",
+      "diff": "--- a/tests/test_legacy.py\n+++ b/tests/test_legacy.py\n@@ -1,3 +1,5 @@\n+\"\"\"Utilities evolved by Forge.\"\"\"\n+\n from app.legacy import calculate_invoice, find_duplicates\n \n \n",
+      "files_changed": [
+        "tests/test_legacy.py"
+      ],
+      "id": "change_f309f019b9de",
+      "status": "rolled_back",
+      "task_id": "task_9599dcc210d0",
+      "tests_added": 0,
+      "tests_passed": false
+    },
+    {
+      "applied_at": "2026-05-08T07:07:11.761134+00:00",
+      "diff": "--- a/EVOLUTION_ROADMAP.md\n+++ b/EVOLUTION_ROADMAP.md\n@@ -0,0 +1,5 @@\n+# Evolution Roadmap\n+\n+- Harden data access patterns.\n+- Increase type coverage.\n+- Track slow paths with benchmarks.\n",
+      "files_changed": [
+        "EVOLUTION_ROADMAP.md"
+      ],
+      "id": "change_85d997db57d6",
+      "status": "rolled_back",
+      "task_id": "task_2c0561a257ce",
+      "tests_added": 0,
+      "tests_passed": false
+    }
+  ],
+  "health": [
+    {
+      "categories": {
+        "documentation": 80,
+        "maintainability": 0,
+        "performance": 80,
+        "security": 57,
+        "test_coverage": 83
+      },
+      "debt_items": [
+        {
+          "description": "Missing module documentation",
+          "severity": "low",
+          "symbol": null,
+          "target": "app/__init__.py",
+          "type": "docs"
+        },
+        {
+          "description": "Missing type hints in get_user",
+          "severity": "medium",
+          "symbol": "get_user",
+          "target": "app/data.py",
+          "type": "refactor"
+        },
+        {
+          "description": "Possible SQL injection via string formatting",
+          "severity": "critical",
+          "symbol": null,
+          "target": "app/data.py",
+          "type": "security"
+        },
+        {
+          "description": "Missing module documentation",
+          "severity": "low",
+          "symbol": null,
+          "target": "app/data.py",
+          "type": "docs"
+        },
+        {
+          "description": "Unused import: os",
+          "severity": "low",
+          "symbol": null,
+          "target": "app/legacy.py",
+          "type": "style"
+        },
+        {
+          "description": "Unused import: sys",
+          "severity": "low",
+          "symbol": null,
+          "target": "app/legacy.py",
+          "type": "style"
+        },
+        {
+          "description": "Unused import: random",
+          "severity": "low",
+          "symbol": null,
+          "target": "app/legacy.py",
+          "type": "style"
+        },
+        {
+          "description": "Missing type hints in calculate_invoice",
+          "severity": "medium",
+          "symbol": "calculate_invoice",
+          "target": "app/legacy.py",
+          "type": "refactor"
+        },
+        {
+          "description": "Deep nesting in calculate_invoice",
+          "severity": "medium",
+          "symbol": "calculate_invoice",
+          "target": "app/legacy.py",
+          "type": "refactor"
+        },
+        {
+          "description": "Missing type hints in find_duplicates",
+          "severity": "medium",
+          "symbol": "find_duplicates",
+          "target": "app/legacy.py",
+          "type": "refactor"
+        },
+        {
+          "description": "Magic number: 1000",
+          "severity": "low",
+          "symbol": null,
+          "target": "app/legacy.py",
+          "type": "refactor"
+        },
+        {
+          "description": "Magic number: 20",
+          "severity": "low",
+          "symbol": null,
+          "target": "app/legacy.py",
+          "type": "refactor"
+        },
+        {
+          "description": "Magic number: 2",
+          "severity": "low",
+          "symbol": null,
+          "target": "app/legacy.py",
+          "type": "refactor"
+        },
+        {
+          "description": "Magic number: 0.9",
+          "severity": "low",
+          "symbol": null,
+          "target": "app/legacy.py",
+          "type": "refactor"
+        },
+        {
+          "description": "Magic number: 0.95",
+          "severity": "low",
+          "symbol": null,
+          "target": "app/legacy.py",
+          "type": "refactor"
+        },
+        {
+          "description": "Magic number: 100",
+          "severity": "low",
+          "symbol": null,
+          "target": "app/legacy.py",
+          "type": "refactor"
+        },
+        {
+          "description": "Magic number: 0.8",
+          "severity": "low",
+          "symbol": null,
+          "target": "app/legacy.py",
+          "type": "refactor"
+        },
+        {
+          "description": "Possible O(n^2) duplicate detection loop",
+          "severity": "high",
+          "symbol": null,
+          "target": "app/legacy.py",
+          "type": "performance"
+        },
+        {
+          "description": "Missing module documentation",
+          "severity": "low",
+          "symbol": null,
+          "target": "app/legacy.py",
+          "type": "docs"
+        },
+        {
+          "description": "Missing type hints in test_calculate_invoice_basic",
+          "severity": "medium",
+          "symbol": "test_calculate_invoice_basic",
+          "target": "tests/test_legacy.py",
+          "type": "refactor"
+        },
+        {
+          "description": "Missing type hints in test_find_duplicates",
+          "severity": "medium",
+          "symbol": "test_find_duplicates",
+          "target": "tests/test_legacy.py",
+          "type": "refactor"
+        },
+        {
+          "description": "Magic number: 320",
+          "severity": "low",
+          "symbol": null,
+          "target": "tests/test_legacy.py",
+          "type": "refactor"
+        },
+        {
+          "description": "Magic number: 0.1",
+          "severity": "low",
+          "symbol": null,
+          "target": "tests/test_legacy.py",
+          "type": "refactor"
+        },
+        {
+          "description": "Magic number: 10",
+          "severity": "low",
+          "symbol": null,
+          "target": "tests/test_legacy.py",
+          "type": "refactor"
+        },
+        {
+          "description": "Magic number: 100",
+          "severity": "low",
+          "symbol": null,
+          "target": "tests/test_legacy.py",
+          "type": "refactor"
+        },
+        {
+          "description": "Magic number: 200",
+          "severity": "low",
+          "symbol": null,
+          "target": "tests/test_legacy.py",
+          "type": "refactor"
+        },
+        {
+          "description": "Missing module documentation",
+          "severity": "low",
+          "symbol": null,
+          "target": "tests/test_legacy.py",
+          "type": "docs"
+        },
+        {
+          "description": "Outdated requests dependency",
+          "severity": "high",
+          "symbol": null,
+          "target": "requirements.txt",
+          "type": "dependency"
+        }
+      ],
+      "overall_score": 60,
+      "snapshot_id": "health_d1d87200cbcd",
+      "timestamp": "2026-05-08T07:06:06.486857+00:00",
+      "trends": {
+        "documentation": "improving",
+        "maintainability": "worsening",
+        "performance": "improving",
+        "security": "worsening",
+        "test_coverage": "improving"
+      }
+    },
+    {
+      "categories": {
+        "documentation": 80,
+        "maintainability": 0,
+        "performance": 80,
+        "security": 57,
+        "test_coverage": 83
+      },
+      "debt_items": [
+        {
+          "description": "Missing module documentation",
+          "severity": "low",
+          "symbol": null,
+          "target": "app/__init__.py",
+          "type": "docs"
+        },
+        {
+          "description": "Missing type hints in get_user",
+          "severity": "medium",
+          "symbol": "get_user",
+          "target": "app/data.py",
+          "type": "refactor"
+        },
+        {
+          "description": "Possible SQL injection via string formatting",
+          "severity": "critical",
+          "symbol": null,
+          "target": "app/data.py",
+          "type": "security"
+        },
+        {
+          "description": "Missing module documentation",
+          "severity": "low",
+          "symbol": null,
+          "target": "app/data.py",
+          "type": "docs"
+        },
+        {
+          "description": "Unused import: os",
+          "severity": "low",
+          "symbol": null,
+          "target": "app/legacy.py",
+          "type": "style"
+        },
+        {
+          "description": "Unused import: sys",
+          "severity": "low",
+          "symbol": null,
+          "target": "app/legacy.py",
+          "type": "style"
+        },
+        {
+          "description": "Unused import: random",
+          "severity": "low",
+          "symbol": null,
+          "target": "app/legacy.py",
+          "type": "style"
+        },
+        {
+          "description": "Missing type hints in calculate_invoice",
+          "severity": "medium",
+          "symbol": "calculate_invoice",
+          "target": "app/legacy.py",
+          "type": "refactor"
+        },
+        {
+          "description": "Deep nesting in calculate_invoice",
+          "severity": "medium",
+          "symbol": "calculate_invoice",
+          "target": "app/legacy.py",
+          "type": "refactor"
+        },
+        {
+          "description": "Missing type hints in find_duplicates",
+          "severity": "medium",
+          "symbol": "find_duplicates",
+          "target": "app/legacy.py",
+          "type": "refactor"
+        },
+        {
+          "description": "Magic number: 1000",
+          "severity": "low",
+          "symbol": null,
+          "target": "app/legacy.py",
+          "type": "refactor"
+        },
+        {
+          "description": "Magic number: 20",
+          "severity": "low",
+          "symbol": null,
+          "target": "app/legacy.py",
+          "type": "refactor"
+        },
+        {
+          "description": "Magic number: 2",
+          "severity": "low",
+          "symbol": null,
+          "target": "app/legacy.py",
+          "type": "refactor"
+        },
+        {
+          "description": "Magic number: 0.9",
+          "severity": "low",
+          "symbol": null,
+          "target": "app/legacy.py",
+          "type": "refactor"
+        },
+        {
+          "description": "Magic number: 0.95",
+          "severity": "low",
+          "symbol": null,
+          "target": "app/legacy.py",
+          "type": "refactor"
+        },
+        {
+          "description": "Magic number: 100",
+          "severity": "low",
+          "symbol": null,
+          "target": "app/legacy.py",
+          "type": "refactor"
+        },
+        {
+          "description": "Magic number: 0.8",
+          "severity": "low",
+          "symbol": null,
+          "target": "app/legacy.py",
+          "type": "refactor"
+        },
+        {
+          "description": "Possible O(n^2) duplicate detection loop",
+          "severity": "high",
+          "symbol": null,
+          "target": "app/legacy.py",
+          "type": "performance"
+        },
+        {
+          "description": "Missing module documentation",
+          "severity": "low",
+          "symbol": null,
+          "target": "app/legacy.py",
+          "type": "docs"
+        },
+        {
+          "description": "Missing type hints in test_calculate_invoice_basic",
+          "severity": "medium",
+          "symbol": "test_calculate_invoice_basic",
+          "target": "tests/test_legacy.py",
+          "type": "refactor"
+        },
+        {
+          "description": "Missing type hints in test_find_duplicates",
+          "severity": "medium",
+          "symbol": "test_find_duplicates",
+          "target": "tests/test_legacy.py",
+          "type": "refactor"
+        },
+        {
+          "description": "Magic number: 320",
+          "severity": "low",
+          "symbol": null,
+          "target": "tests/test_legacy.py",
+          "type": "refactor"
+        },
+        {
+          "description": "Magic number: 0.1",
+          "severity": "low",
+          "symbol": null,
+          "target": "tests/test_legacy.py",
+          "type": "refactor"
+        },
+        {
+          "description": "Magic number: 10",
+          "severity": "low",
+          "symbol": null,
+          "target": "tests/test_legacy.py",
+          "type": "refactor"
+        },
+        {
+          "description": "Magic number: 100",
+          "severity": "low",
+          "symbol": null,
+          "target": "tests/test_legacy.py",
+          "type": "refactor"
+        },
+        {
+          "description": "Magic number: 200",
+          "severity": "low",
+          "symbol": null,
+          "target": "tests/test_legacy.py",
+          "type": "refactor"
+        },
+        {
+          "description": "Missing module documentation",
+          "severity": "low",
+          "symbol": null,
+          "target": "tests/test_legacy.py",
+          "type": "docs"
+        },
+        {
+          "description": "Outdated requests dependency",
+          "severity": "high",
+          "symbol": null,
+          "target": "requirements.txt",
+          "type": "dependency"
+        }
+      ],
+      "overall_score": 60,
+      "snapshot_id": "health_bcd332cbecd3",
+      "timestamp": "2026-05-08T07:07:17.593069+00:00",
+      "trends": {
+        "documentation": "improving",
+        "maintainability": "worsening",
+        "performance": "improving",
+        "security": "worsening",
+        "test_coverage": "improving"
+      }
+    }
+  ],
+  "learning": [
+    {
+      "message": "============================= test session starts ==============================\nplatform linux -- Python 3.12.3, pytest-9.0.3, pluggy-1.6.0\nrootdir: /root/forge\nconfigfile: pyproject.toml\nplugins: cov-7.1.0, anyio-4.13.0, asyncio-1.3.0\nasyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function\ncollected 0 items\n\n============================ no tests ran in 0.02s =============================\nERROR: file or directory not found: .forge_demo/before/tests\n\n",
+      "success": false,
+      "task_id": "task_5d90e81afab1",
+      "task_type": "security",
+      "timestamp": "2026-05-08T07:06:08.587086+00:00"
+    },
+    {
+      "message": "============================= test session starts ==============================\nplatform linux -- Python 3.12.3, pytest-9.0.3, pluggy-1.6.0\nrootdir: /root/forge\nconfigfile: pyproject.toml\nplugins: cov-7.1.0, anyio-4.13.0, asyncio-1.3.0\nasyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function\ncollected 0 items\n\n============================ no tests ran in 0.01s =============================\nERROR: file or directory not found: .forge_demo/before/tests\n\n",
+      "success": false,
+      "task_id": "task_36f12483f486",
+      "task_type": "dependency",
+      "timestamp": "2026-05-08T07:06:10.236324+00:00"
+    },
+    {
+      "message": "============================= test session starts ==============================\nplatform linux -- Python 3.12.3, pytest-9.0.3, pluggy-1.6.0\nrootdir: /root/forge\nconfigfile: pyproject.toml\nplugins: cov-7.1.0, anyio-4.13.0, asyncio-1.3.0\nasyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function\ncollected 0 items\n\n============================ no tests ran in 0.03s =============================\nERROR: file or directory not found: .forge_demo/before/tests\n\n",
+      "success": false,
+      "task_id": "task_33783f67729a",
+      "task_type": "performance",
+      "timestamp": "2026-05-08T07:06:11.866339+00:00"
+    },
+    {
+      "message": "============================= test session starts ==============================\nplatform linux -- Python 3.12.3, pytest-9.0.3, pluggy-1.6.0\nrootdir: /root/forge\nconfigfile: pyproject.toml\nplugins: cov-7.1.0, anyio-4.13.0, asyncio-1.3.0\nasyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function\ncollected 0 items\n\n============================ no tests ran in 0.04s =============================\nERROR: file or directory not found: .forge_demo/before/tests\n\n",
+      "success": false,
+      "task_id": "task_c11210a9e399",
+      "task_type": "refactor",
+      "timestamp": "2026-05-08T07:06:14.619996+00:00"
+    },
+    {
+      "message": "============================= test session starts ==============================\nplatform linux -- Python 3.12.3, pytest-9.0.3, pluggy-1.6.0\nrootdir: /root/forge\nconfigfile: pyproject.toml\nplugins: cov-7.1.0, anyio-4.13.0, asyncio-1.3.0\nasyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function\ncollected 0 items\n\n============================ no tests ran in 0.02s =============================\nERROR: file or directory not found: .forge_demo/before/tests\n\n",
+      "success": false,
+      "task_id": "task_d3f44ea28567",
+      "task_type": "refactor",
+      "timestamp": "2026-05-08T07:06:17.379241+00:00"
+    },
+    {
+      "message": "============================= test session starts ==============================\nplatform linux -- Python 3.12.3, pytest-9.0.3, pluggy-1.6.0\nrootdir: /root/forge\nconfigfile: pyproject.toml\nplugins: cov-7.1.0, anyio-4.13.0, asyncio-1.3.0\nasyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function\ncollected 0 items\n\n============================ no tests ran in 0.03s =============================\nERROR: file or directory not found: .forge_demo/before/tests\n\n",
+      "success": false,
+      "task_id": "task_e20f14848d7e",
+      "task_type": "refactor",
+      "timestamp": "2026-05-08T07:06:20.908991+00:00"
+    },
+    {
+      "message": "============================= test session starts ==============================\nplatform linux -- Python 3.12.3, pytest-9.0.3, pluggy-1.6.0\nrootdir: /root/forge\nconfigfile: pyproject.toml\nplugins: cov-7.1.0, anyio-4.13.0, asyncio-1.3.0\nasyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function\ncollected 0 items\n\n============================ no tests ran in 0.01s =============================\nERROR: file or directory not found: .forge_demo/before/tests\n\n",
+      "success": false,
+      "task_id": "task_2dcf64fc1081",
+      "task_type": "style",
+      "timestamp": "2026-05-08T07:06:28.567996+00:00"
+    },
+    {
+      "message": "============================= test session starts ==============================\nplatform linux -- Python 3.12.3, pytest-9.0.3, pluggy-1.6.0\nrootdir: /root/forge\nconfigfile: pyproject.toml\nplugins: cov-7.1.0, anyio-4.13.0, asyncio-1.3.0\nasyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function\ncollected 0 items\n\n============================ no tests ran in 0.06s =============================\nERROR: file or directory not found: .forge_demo/before/tests\n\n",
+      "success": false,
+      "task_id": "task_039659dec900",
+      "task_type": "docs",
+      "timestamp": "2026-05-08T07:06:33.965160+00:00"
+    },
+    {
+      "message": "============================= test session starts ==============================\nplatform linux -- Python 3.12.3, pytest-9.0.3, pluggy-1.6.0\nrootdir: /root/forge\nconfigfile: pyproject.toml\nplugins: cov-7.1.0, anyio-4.13.0, asyncio-1.3.0\nasyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function\ncollected 0 items\n\n============================ no tests ran in 0.04s =============================\nERROR: file or directory not found: .forge_demo/before/tests\n\n",
+      "success": false,
+      "task_id": "task_a9c634770fde",
+      "task_type": "docs",
+      "timestamp": "2026-05-08T07:07:08.343145+00:00"
+    },
+    {
+      "message": "============================= test session starts ==============================\nplatform linux -- Python 3.12.3, pytest-9.0.3, pluggy-1.6.0\nrootdir: /root/forge\nconfigfile: pyproject.toml\nplugins: cov-7.1.0, anyio-4.13.0, asyncio-1.3.0\nasyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function\ncollected 0 items\n\n============================ no tests ran in 0.01s =============================\nERROR: file or directory not found: .forge_demo/before/tests\n\n",
+      "success": false,
+      "task_id": "task_b2cd66918133",
+      "task_type": "docs",
+      "timestamp": "2026-05-08T07:07:09.707495+00:00"
+    },
+    {
+      "message": "============================= test session starts ==============================\nplatform linux -- Python 3.12.3, pytest-9.0.3, pluggy-1.6.0\nrootdir: /root/forge\nconfigfile: pyproject.toml\nplugins: cov-7.1.0, anyio-4.13.0, asyncio-1.3.0\nasyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function\ncollected 0 items\n\n============================ no tests ran in 0.02s =============================\nERROR: file or directory not found: .forge_demo/before/tests\n\n",
+      "success": false,
+      "task_id": "task_9599dcc210d0",
+      "task_type": "docs",
+      "timestamp": "2026-05-08T07:07:11.727491+00:00"
+    },
+    {
+      "message": "============================= test session starts ==============================\nplatform linux -- Python 3.12.3, pytest-9.0.3, pluggy-1.6.0\nrootdir: /root/forge\nconfigfile: pyproject.toml\nplugins: cov-7.1.0, anyio-4.13.0, asyncio-1.3.0\nasyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function\ncollected 0 items\n\n============================ no tests ran in 0.19s =============================\nERROR: file or directory not found: .forge_demo/before/tests\n\n",
+      "success": false,
+      "task_id": "task_2c0561a257ce",
+      "task_type": "feature",
+      "timestamp": "2026-05-08T07:07:17.520261+00:00"
+    }
+  ],
+  "runs": [
+    {
+      "completed_at": null,
+      "id": "run_20178bdd867d",
+      "overall_risk_score": 0.0,
+      "started_at": "2026-05-08T07:06:06.533660+00:00",
+      "status": "running",
+      "task_ids": [
+        "task_5d90e81afab1",
+        "task_36f12483f486",
+        "task_33783f67729a",
+        "task_c11210a9e399",
+        "task_d3f44ea28567",
+        "task_e20f14848d7e",
+        "task_2dcf64fc1081",
+        "task_039659dec900",
+        "task_a9c634770fde",
+        "task_b2cd66918133",
+        "task_9599dcc210d0",
+        "task_2c0561a257ce"
+      ],
+      "tasks_completed": 0,
+      "tasks_failed": 0,
+      "tasks_planned": 12
+    }
+  ],
+  "tasks": [
+    {
+      "completed_at": "2026-05-08T07:06:08.588773+00:00",
+      "created_at": "2026-05-08T07:06:06.504341+00:00",
+      "description": "Patch security vulnerability",
+      "estimated_risk": "moderate",
+      "id": "task_5d90e81afab1",
+      "metadata": {
+        "symbol": null
+      },
+      "priority": "critical",
+      "rationale": "Possible SQL injection via string formatting",
+      "status": "rolled_back",
+      "target": "app/data.py",
+      "task_type": "security"
+    },
+    {
+      "completed_at": "2026-05-08T07:06:10.239096+00:00",
+      "created_at": "2026-05-08T07:06:06.504490+00:00",
+      "description": "Update outdated dependency",
+      "estimated_risk": "moderate",
+      "id": "task_36f12483f486",
+      "metadata": {
+        "symbol": null
+      },
+      "priority": "high",
+      "rationale": "Outdated requests dependency",
+      "status": "rolled_back",
+      "target": "requirements.txt",
+      "task_type": "dependency"
+    },
+    {
+      "completed_at": "2026-05-08T07:06:11.871600+00:00",
+      "created_at": "2026-05-08T07:06:06.504437+00:00",
+      "description": "Optimize performance anti-pattern",
+      "estimated_risk": "moderate",
+      "id": "task_33783f67729a",
+      "metadata": {
+        "symbol": null
+      },
+      "priority": "high",
+      "rationale": "Possible O(n^2) duplicate detection loop",
+      "status": "rolled_back",
+      "target": "app/legacy.py",
+      "task_type": "performance"
+    },
+    {
+      "completed_at": "2026-05-08T07:06:14.626084+00:00",
+      "created_at": "2026-05-08T07:06:06.504330+00:00",
+      "description": "Apply safe refactoring",
+      "estimated_risk": "safe",
+      "id": "task_c11210a9e399",
+      "metadata": {
+        "symbol": "get_user"
+      },
+      "priority": "medium",
+      "rationale": "Missing type hints in get_user",
+      "status": "rolled_back",
+      "target": "app/data.py",
+      "task_type": "refactor"
+    },
+    {
+      "completed_at": "2026-05-08T07:06:17.386877+00:00",
+      "created_at": "2026-05-08T07:06:06.504384+00:00",
+      "description": "Apply safe refactoring",
+      "estimated_risk": "safe",
+      "id": "task_d3f44ea28567",
+      "metadata": {
+        "symbol": "calculate_invoice"
+      },
+      "priority": "medium",
+      "rationale": "Missing type hints in calculate_invoice",
+      "status": "rolled_back",
+      "target": "app/legacy.py",
+      "task_type": "refactor"
+    },
+    {
+      "completed_at": "2026-05-08T07:06:20.918368+00:00",
+      "created_at": "2026-05-08T07:06:06.504448+00:00",
+      "description": "Apply safe refactoring",
+      "estimated_risk": "safe",
+      "id": "task_e20f14848d7e",
+      "metadata": {
+        "symbol": "test_calculate_invoice_basic"
+      },
+      "priority": "medium",
+      "rationale": "Missing type hints in test_calculate_invoice_basic",
+      "status": "rolled_back",
+      "target": "tests/test_legacy.py",
+      "task_type": "refactor"
+    },
+    {
+      "completed_at": "2026-05-08T07:06:28.571683+00:00",
+      "created_at": "2026-05-08T07:06:06.504360+00:00",
+      "description": "Clean code style issue",
+      "estimated_risk": "safe",
+      "id": "task_2dcf64fc1081",
+      "metadata": {
+        "symbol": null
+      },
+      "priority": "low",
+      "rationale": "Unused import: os",
+      "status": "rolled_back",
+      "target": "app/legacy.py",
+      "task_type": "style"
+    },
+    {
+      "completed_at": "2026-05-08T07:06:33.987397+00:00",
+      "created_at": "2026-05-08T07:06:06.504319+00:00",
+      "description": "Synchronize documentation with code",
+      "estimated_risk": "safe",
+      "id": "task_039659dec900",
+      "metadata": {
+        "symbol": null
+      },
+      "priority": "low",
+      "rationale": "Missing module documentation",
+      "status": "rolled_back",
+      "target": "app/__init__.py",
+      "task_type": "docs"
+    },
+    {
+      "completed_at": "2026-05-08T07:07:08.347990+00:00",
+      "created_at": "2026-05-08T07:06:06.504351+00:00",
+      "description": "Synchronize documentation with code",
+      "estimated_risk": "safe",
+      "id": "task_a9c634770fde",
+      "metadata": {
+        "symbol": null
+      },
+      "priority": "low",
+      "rationale": "Missing module documentation",
+      "status": "rolled_back",
+      "target": "app/data.py",
+      "task_type": "docs"
+    },
+    {
+      "completed_at": "2026-05-08T07:07:09.712485+00:00",
+      "created_at": "2026-05-08T07:06:06.504443+00:00",
+      "description": "Synchronize documentation with code",
+      "estimated_risk": "safe",
+      "id": "task_b2cd66918133",
+      "metadata": {
+        "symbol": null
+      },
+      "priority": "low",
+      "rationale": "Missing module documentation",
+      "status": "rolled_back",
+      "target": "app/legacy.py",
+      "task_type": "docs"
+    },
+    {
+      "completed_at": "2026-05-08T07:07:11.741376+00:00",
+      "created_at": "2026-05-08T07:06:06.504485+00:00",
+      "description": "Synchronize documentation with code",
+      "estimated_risk": "safe",
+      "id": "task_9599dcc210d0",
+      "metadata": {
+        "symbol": null
+      },
+      "priority": "low",
+      "rationale": "Missing module documentation",
+      "status": "rolled_back",
+      "target": "tests/test_legacy.py",
+      "task_type": "docs"
+    },
+    {
+      "completed_at": "2026-05-08T07:07:17.558437+00:00",
+      "created_at": "2026-05-08T07:06:06.504495+00:00",
+      "description": "Suggest feature roadmap from recurring debt patterns",
+      "estimated_risk": "safe",
+      "id": "task_2c0561a257ce",
+      "metadata": {},
+      "priority": "low",
+      "rationale": "Feature suggestions help turn repeated maintenance issues into product direction.",
+      "status": "rolled_back",
+      "target": "roadmap",
+      "task_type": "feature"
+    }
+  ]
+}
