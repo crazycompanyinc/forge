@@ -11,7 +11,8 @@ class TaskGenerator:
             kind = issue["type"]
             if task_type and kind != task_type:
                 continue
-            key = (kind, issue["target"], issue["description"])
+            description = self._task_description(issue)
+            key = (kind, issue["target"], description)
             if key in seen:
                 continue
             seen.add(key)
@@ -19,7 +20,7 @@ class TaskGenerator:
                 EvolutionTask(
                     task_type=kind,  # type: ignore[arg-type]
                     target=issue["target"],
-                    description=self._task_description(issue),
+                    description=description,
                     rationale=issue["description"],
                     priority=self._priority(issue["severity"]),
                     estimated_risk=self._risk(kind, issue["severity"]),

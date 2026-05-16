@@ -27,6 +27,7 @@ class HealthScanner:
         except SyntaxError as exc:
             return [self._issue("style", rel, f"Syntax error: {exc.msg}", "critical")]
 
+        is_test = "/tests/" in f"/{rel}" or Path(rel).name.startswith("test_")
         imports = [node.names[0].name for node in ast.walk(tree) if isinstance(node, (ast.Import, ast.ImportFrom)) and node.names]
         used_names = {node.id for node in ast.walk(tree) if isinstance(node, ast.Name)}
         for name in imports:
@@ -37,23 +38,29 @@ class HealthScanner:
         for node in ast.walk(tree):
             if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
                 length = max([getattr(child, "end_lineno", node.lineno) for child in ast.walk(node)], default=node.lineno) - node.lineno + 1
-                if length >= 40:
+                if not is_test and length >= 40:
                     issues.append(self._issue("refactor", rel, f"Long function {node.name} spans {length} lines", "medium", node.name))
-                if not node.returns or any(arg.annotation is None for arg in node.args.args):
+                if not is_test and (not node.returns or any(arg.annotation is None for arg in node.args.args)):
                     issues.append(self._issue("refactor", rel, f"Missing type hints in {node.name}", "medium", node.name))
                 nested = self._max_if_depth(node)
-                if nested >= 3:
+                if not is_test and nested >= 3:
                     issues.append(self._issue("refactor", rel, f"Deep nesting in {node.name}", "medium", node.name))
 
-            if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)) and node.value not in {0, 1, -1}:
-                issues.append(self._issue("refactor", rel, f"Magic number: {node.value}", "low"))
+        magic_values = sorted(
+            {node.value for node in ast.walk(tree) if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)) and node.value not in {0, 1, -1}},
+            key=str,
+        )
+        for value in magic_values[:5]:
+            if not is_test:
+                issues.append(self._issue("refactor", rel, f"Magic number: {value}", "low"))
 
+        for node in ast.walk(tree):
             if isinstance(node, ast.BinOp) and isinstance(node.op, ast.Mod) and self._contains_execute_context(tree, node):
                 issues.append(self._issue("security", rel, "Possible SQL injection via string formatting", "critical"))
 
-        if "for " in source and ".append(" in source and " in results" in source:
+        if not is_test and "for " in source and ".append(" in source and " in results" in source:
             issues.append(self._issue("performance", rel, "Possible O(n^2) duplicate detection loop", "high"))
-        if '"""' not in source and "'''" not in source:
+        if not is_test and Path(rel).name != "__init__.py" and '"""' not in source and "'''" not in source:
             issues.append(self._issue("docs", rel, "Missing module documentation", "low"))
         return issues
 
